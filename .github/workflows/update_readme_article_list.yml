@@ -1,0 +1,26 @@
+name: Update Readme Article list
+
+on:
+  schedule:
+    - cron: '30 22 * * *'
+
+jobs:
+  juejin-posts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Append Juejin Posts List 📚
+        uses: vaebe/juejin-posts-action@main
+        with:
+          user_id: '712139266339694' # 上面拿到不同平台的id后，填入这里
+          platform: juejin # 这里填写不同的平台，有juejin, zhihu, segmentfault
+
+      - run: |
+          git pull
+      - name: Push to GitHub
+        uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          message: juejin-posts
