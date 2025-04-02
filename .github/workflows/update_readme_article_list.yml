@@ -2,7 +2,8 @@ name: Update Readme Article list
 
 on:
   schedule:
-    - cron: '30 22 * * *'
+    - cron: '30 22 * * *' # 每天 UTC 时间 22:30 运行
+  workflow_dispatch: # 允许手动触发
 
 jobs:
   juejin-posts:
@@ -14,11 +15,10 @@ jobs:
       - name: Append Juejin Posts List 📚
         uses: vaebe/juejin-posts-action@main
         with:
-          user_id: '712139266339694' # 上面拿到不同平台的id后，填入这里
-          platform: juejin # 这里填写不同的平台，有juejin, zhihu, segmentfault
+          user_id: '712139266339694' # 你的 Juejin 用户 ID
 
-      - run: |
-          git pull
+      - run: git pull
+      
       - name: Push to GitHub
         uses: EndBug/add-and-commit@v9
         with:
